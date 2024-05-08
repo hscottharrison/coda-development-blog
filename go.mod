@@ -1,4 +1,4 @@
-module github.com/hscottharrison/coda-development-blog-server
+module coda-development-blog-server
 
 go 1.22.2
 
