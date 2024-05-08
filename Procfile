@@ -1,1 +1,1 @@
-web: go run .
+web: coda-development-blog-server 
