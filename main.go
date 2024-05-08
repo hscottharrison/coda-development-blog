@@ -1,8 +1,9 @@
 package main
 
-import "log"
-
-const portNumber = ":8080"
+import (
+	"log"
+	"os"
+)
 
 func main() {
 	store, err := NewPostgresStore()
@@ -10,6 +11,8 @@ func main() {
 	if err != nil {
 		log.Fatal("ERROR in creating store", err)
 	}
-	apiServer := NewAPIServer(portNumber, store)
+
+	port := os.Getenv("PORT")
+	apiServer := NewAPIServer(port, store)
 	apiServer.Run()
 }
