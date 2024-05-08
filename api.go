@@ -58,14 +58,12 @@ func makeHttpHandlerFunc(f apiFunc, isProtected bool) http.HandlerFunc {
 				return
 			}
 
-			email, err := parseJWT(token, []byte(secret))
-			fmt.Println("ERROR", err)
+			_, err := parseJWT(token, []byte(secret))
 			if err != nil {
 				WriteJSON(w, http.StatusUnauthorized, APIError{Error: "Unauthorized"})
 
 				return
 			}
-			fmt.Println("EMAIL", email)
 		}
 
 		if err := f(w, r); err != nil {
@@ -92,8 +90,6 @@ func parseJWT(token string, hmacSecret []byte) (string, error) {
 		}
 		return hmacSecret, nil
 	})
-	fmt.Println("TOKEN", t)
-	fmt.Println("ERROR", err)
 	// Check if the token is valid
 	if err != nil {
 		return "", fmt.Errorf("error validating token: %v", err)

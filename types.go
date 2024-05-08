@@ -2,24 +2,14 @@ package main
 
 import "time"
 
-type User struct {
-	Id        int       `json:"id"`
-	Username  string    `json:"username"`
-	Password  string    `json:"password"`
-	Email     string    `json:"email"`
-	FirstName string    `json:"firstname"`
-	LastLame  string    `json:"lastname"`
-	CreatedAt time.Time `json:"createdat"`
-}
-
 type CreateCategoryRequest struct {
-	CategoryName string `json:"categoryname"`
+	CategoryName string `json:"categoryName"`
 }
 
 type Category struct {
 	Id           int       `json:"id"`
-	CategoryName string    `json:"categoryname"`
-	CreatedAt    time.Time `json:"createdat"`
+	CategoryName string    `json:"categoryName"`
+	CreatedAt    time.Time `json:"createdAt"`
 }
 
 func NewCategory(CategoryName string) *Category {
@@ -30,27 +20,30 @@ func NewCategory(CategoryName string) *Category {
 }
 
 type CreatePostRequest struct {
-	PostTitle  string `json:"posttitle"`
+	PostTitle  string `json:"postTitle"`
 	Content    string `json:"content"`
-	CategoryId int    `json:"categoryid"`
-	UserId     string `json:"userid"`
+	CategoryId int    `json:"categoryId"`
+	UserId     string `json:"userId"`
+	ImageUrl   string `json:"imageUrl"`
 }
 
 type Post struct {
 	Id         int       `json:"id"`
-	PostTitle  string    `json:"posttitle"`
+	PostTitle  string    `json:"postTitle"`
 	Content    string    `json:"content"`
-	CreatedAt  time.Time `json:"createdat"`
-	CategoryId int       `json:"categoryid"`
-	UserId     string    `json:"userid"`
+	CreatedAt  time.Time `json:"createdAt"`
+	CategoryId int       `json:"categoryId"`
+	UserId     string    `json:"userId"`
+	ImageUrl   string    `json:"imageUrl"`
 }
 
-func NewPost(PostTitle string, Content string, CategoryId int, UserId string) *Post {
+func NewPost(p *CreatePostRequest) *Post {
 	return &Post{
-		PostTitle:  PostTitle,
-		Content:    Content,
-		CategoryId: CategoryId,
-		UserId:     UserId,
+		PostTitle:  p.PostTitle,
+		Content:    p.Content,
+		CategoryId: p.CategoryId,
+		UserId:     p.UserId,
+		ImageUrl:   p.ImageUrl,
 		CreatedAt:  time.Now().UTC(),
 	}
 }
