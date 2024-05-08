@@ -45,7 +45,7 @@ func (s *APIServer) Run() {
 	originsOk := handlers.AllowedOrigins([]string{"*"})
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 	corsHandler := handlers.CORS(headersOk, originsOk, methodsOk)(mux)
-	http.ListenAndServe(s.listenAddr, corsHandler)
+	http.ListenAndServe(":"+s.listenAddr, corsHandler)
 }
 
 func makeHttpHandlerFunc(f apiFunc, isProtected bool) http.HandlerFunc {
