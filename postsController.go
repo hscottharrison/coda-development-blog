@@ -23,3 +23,26 @@ func (a *APIServer) HandleCreatePost(w http.ResponseWriter, r *http.Request) err
 	a.store.CreatePost(post)
 	return WriteJSON(w, http.StatusOK, createPostReq)
 }
+
+func (a *APIServer) HandleUpdatePost(w http.ResponseWriter, r *http.Request) error {
+	id := r.PathValue("id")
+	post := new(Post)
+	if err := json.NewDecoder(r.Body).Decode(post); err != nil {
+		return err
+	}
+
+	err := a.store.UpdatePost(id, post)
+	if err != nil {
+		return WriteJSON(w, http.StatusInternalServerError, APIError{Error: err.Error()})
+	}
+	return WriteJSON(w, http.StatusOK, post)
+}
+
+func (a *APIServer) HandleDeletePost(w http.ResponseWriter, r *http.Request) error {
+	id := r.PathValue("id")
+	err := a.store.DeletePost(id)
+	if err != nil {
+		return WriteJSON(w, http.StatusInternalServerError, APIError{Error: err.Error()})
+	}
+	return WriteJSON(w, http.StatusOK, "Post deleted successfully")
+}

@@ -50,3 +50,29 @@ func (s *PostgresStore) GetPosts() ([]*Post, error) {
 
 	return posts, nil
 }
+
+func (s *PostgresStore) UpdatePost(id string, post *Post) error {
+	query := `UPDATE posts SET posttitle=$1, content=$2, categoryid=$3, userid=$4, imageurl=$5 WHERE id=$6`
+
+	_, queryErr := s.db.Exec(query, post.PostTitle, post.Content, post.CategoryId, post.UserId, post.ImageUrl, id)
+
+	if queryErr != nil {
+		fmt.Println("Error in updating post: ", queryErr)
+		return queryErr
+	}
+
+	return nil
+}
+
+func (s *PostgresStore) DeletePost(id string) error {
+	query := `DELETE FROM posts WHERE id=$1`
+
+	_, queryErr := s.db.Exec(query, id)
+
+	if queryErr != nil {
+		fmt.Println("Error in deleting post: ", queryErr)
+		return queryErr
+	}
+
+	return nil
+}

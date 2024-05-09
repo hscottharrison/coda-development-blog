@@ -14,6 +14,8 @@ type DB interface {
 	GetCategories() ([]*Category, error)
 	CreatePost(*Post) error
 	GetPosts() ([]*Post, error)
+	UpdatePost(string, *Post) error
+	DeletePost(string) error
 }
 
 type PostgresStore struct {

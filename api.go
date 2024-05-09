@@ -36,6 +36,8 @@ func (s *APIServer) Run() {
 	// Posts
 	mux.HandleFunc("GET /posts", makeHttpHandlerFunc(s.HandleGetPosts, false))
 	mux.HandleFunc("POST /posts", makeHttpHandlerFunc(s.HandleCreatePost, true))
+	mux.HandleFunc("PUT /posts/{id}", makeHttpHandlerFunc(s.HandleUpdatePost, true))
+	mux.HandleFunc("DELETE /posts/{id}", makeHttpHandlerFunc(s.HandleDeletePost, true))
 
 	// Categories
 	mux.HandleFunc("GET /categories", makeHttpHandlerFunc(s.HandleGetCategories, false))
@@ -43,7 +45,7 @@ func (s *APIServer) Run() {
 
 	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
 	originsOk := handlers.AllowedOrigins([]string{"*"})
-	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "DELETE"})
 
 	corsHandler := handlers.CORS(headersOk, originsOk, methodsOk)(mux)
 
