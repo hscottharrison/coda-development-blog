@@ -44,7 +44,10 @@ func (s *APIServer) Run() {
 	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
 	originsOk := handlers.AllowedOrigins([]string{"*"})
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+
 	corsHandler := handlers.CORS(headersOk, originsOk, methodsOk)(mux)
+
+	fmt.Println("Listening on port", s.listenAddr)
 	http.ListenAndServe(":"+s.listenAddr, corsHandler)
 }
 
