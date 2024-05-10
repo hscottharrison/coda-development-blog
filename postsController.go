@@ -6,7 +6,8 @@ import (
 )
 
 func (a *APIServer) HandleGetPosts(w http.ResponseWriter, r *http.Request) error {
-	posts, err := a.store.GetPosts()
+	getDrafts := r.PathValue("getDrafts") == "true"
+	posts, err := a.store.GetPosts(getDrafts)
 
 	if err != nil {
 		return WriteJSON(w, http.StatusInternalServerError, APIError{Error: err.Error()})

@@ -25,6 +25,7 @@ type CreatePostRequest struct {
 	CategoryId int    `json:"categoryId"`
 	UserId     string `json:"userId"`
 	ImageUrl   string `json:"imageUrl"`
+	IsDraft    bool   `json:"isDraft"`
 }
 
 type Post struct {
@@ -35,6 +36,7 @@ type Post struct {
 	CategoryId int       `json:"categoryId"`
 	UserId     string    `json:"userId"`
 	ImageUrl   string    `json:"imageUrl"`
+	IsDraft    bool      `json:"isDraft"`
 }
 
 func NewPost(p *CreatePostRequest) *Post {
@@ -45,5 +47,6 @@ func NewPost(p *CreatePostRequest) *Post {
 		UserId:     p.UserId,
 		ImageUrl:   p.ImageUrl,
 		CreatedAt:  time.Now().UTC(),
+		IsDraft:    p.IsDraft,
 	}
 }

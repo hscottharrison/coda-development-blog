@@ -13,7 +13,7 @@ type DB interface {
 	CreateCategory(*Category) error
 	GetCategories() ([]*Category, error)
 	CreatePost(*Post) error
-	GetPosts() ([]*Post, error)
+	GetPosts(isDraft bool) ([]*Post, error)
 	UpdatePost(string, *Post) error
 	DeletePost(string) error
 }

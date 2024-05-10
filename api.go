@@ -34,7 +34,7 @@ func (s *APIServer) Run() {
 	godotenv.Load()
 
 	// Posts
-	mux.HandleFunc("GET /posts", makeHttpHandlerFunc(s.HandleGetPosts, false))
+	mux.HandleFunc("GET /posts/{getDrafts}", makeHttpHandlerFunc(s.HandleGetPosts, false))
 	mux.HandleFunc("POST /posts", makeHttpHandlerFunc(s.HandleCreatePost, true))
 	mux.HandleFunc("PUT /posts/{id}", makeHttpHandlerFunc(s.HandleUpdatePost, true))
 	mux.HandleFunc("DELETE /posts/{id}", makeHttpHandlerFunc(s.HandleDeletePost, true))
